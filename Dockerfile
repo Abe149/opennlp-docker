@@ -9,22 +9,23 @@ RUN apt-get install -y \
 
 ENV workdir /usr/src/myapp
 RUN mkdir -p $workdir
-WORKDIR $workdir
+WORKDIR      $workdir
 
-RUN curl -o $workdir/apache-opennlp-1.9.0-bin.zip http://apache.claz.org/opennlp/opennlp-1.9.0/apache-opennlp-1.9.0-bin.zip
+RUN curl -o                                  $workdir/apache-opennlp-1.9.3-bin.zip \
+         http://apache.claz.org/opennlp/opennlp-1.9.3/apache-opennlp-1.9.3-bin.zip
 
-RUN mkdir /models
-RUN curl -o /models/en-sent.bin http://opennlp.sourceforge.net/models-1.5/en-sent.bin
-RUN curl -o /models/en-ner-person.bin http://opennlp.sourceforge.net/models-1.5/en-ner-person.bin
+RUN mkdir   /models
+RUN curl -o /models/en-sent.bin             http://opennlp.sourceforge.net/models-1.5/en-sent.bin
+RUN curl -o /models/en-ner-person.bin       http://opennlp.sourceforge.net/models-1.5/en-ner-person.bin
 RUN curl -o /models/en-ner-organization.bin http://opennlp.sourceforge.net/models-1.5/en-ner-organization.bin
 
 ADD KEYS $workdir/KEYS
-ADD apache-opennlp-1.9.0-bin.zip.asc $workdir/apache-opennlp-1.9.0-bin.zip.asc
+ADD                   apache-opennlp-1.9.3-bin.zip.asc $workdir/apache-opennlp-1.9.3-bin.zip.asc
 RUN gpg --import KEYS
-RUN gpg --verify apache-opennlp-1.9.0-bin.zip.asc apache-opennlp-1.9.0-bin.zip
+RUN gpg --verify      apache-opennlp-1.9.3-bin.zip.asc          apache-opennlp-1.9.3-bin.zip
 
-RUN unzip apache-opennlp-1.9.0-bin.zip
-RUN rm apache-opennlp-1.9.0-bin.zip
-RUN mv apache-opennlp-1.9.0/ /usr/bin/
+RUN unzip apache-opennlp-1.9.3-bin.zip
+RUN rm    apache-opennlp-1.9.3-bin.zip
+RUN mv    apache-opennlp-1.9.3/        /usr/bin/
 
-ENTRYPOINT ["/usr/bin/apache-opennlp-1.9.0/bin/opennlp"]
+ENTRYPOINT ["/usr/bin/apache-opennlp-1.9.3/bin/opennlp"]
