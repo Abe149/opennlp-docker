@@ -19,7 +19,9 @@ RUN curl -o /models/en-sent.bin             http://opennlp.sourceforge.net/model
 RUN curl -o /models/en-ner-person.bin       http://opennlp.sourceforge.net/models-1.5/en-ner-person.bin
 RUN curl -o /models/en-ner-organization.bin http://opennlp.sourceforge.net/models-1.5/en-ner-organization.bin
 
-ADD KEYS $workdir/KEYS
+RUN curl -o      KEYS https://downloads.apache.org/opennlp/KEYS
+
+ADD              KEYS $workdir/KEYS
 ADD                   apache-opennlp-1.9.3-bin.zip.asc $workdir/apache-opennlp-1.9.3-bin.zip.asc
 RUN gpg --import KEYS
 RUN gpg --verify      apache-opennlp-1.9.3-bin.zip.asc          apache-opennlp-1.9.3-bin.zip
